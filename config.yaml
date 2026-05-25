@@ -1,0 +1,105 @@
+app_name: douyin-bot
+safe_mode: true
+auto_claim_reward: false
+auto_place_order: false
+switch_room: true
+max_wait_minutes: 15
+loop_interval_seconds: 8
+adb:
+  command_timeout_seconds: 15
+  retry_count: 2
+  retry_delay_ms: 800
+device_serial: ""
+adb_path: adb
+tesseract_path: tesseract
+debug:
+  dry_run: false
+  max_iterations: 0
+  static_screen_path: ""
+resolution:
+  width: 1080
+  height: 2400
+y_offset: 0
+artifacts:
+  screenshot_dir: data/screenshots
+  log_dir: data/logs
+  record_file: data/records/lottery_records.jsonl
+strategy:
+  prize_whitelist:
+    - 茅台
+    - 红包
+    - 现金
+  prize_blacklist:
+    - 粉丝团
+    - 会员
+  min_join_seconds: 5
+  max_join_seconds: 600
+  join_keywords:
+    - 参与抽奖
+    - 去参与
+    - 已参与
+ocr:
+  default_lang: chi_sim+eng
+  digits_lang: eng
+  psm: 6
+  preprocess_enabled: true
+  threshold_value: 160
+screen_regions:
+  fudai_icon:
+    x: 820
+    y: 1620
+    width: 220
+    height: 220
+  popup_prize:
+    x: 145
+    y: 980
+    width: 780
+    height: 210
+  popup_countdown:
+    x: 350
+    y: 1260
+    width: 380
+    height: 90
+  popup_button:
+    x: 260
+    y: 1680
+    width: 560
+    height: 150
+  live_status:
+    x: 180
+    y: 420
+    width: 720
+    height: 180
+  verification:
+    x: 120
+    y: 760
+    width: 840
+    height: 620
+  switch_swipe:
+    x: 540
+    y: 1760
+    width: 0
+    height: 420
+  first_room_tap:
+    x: 540
+    y: 720
+    width: 0
+    height: 0
+thresholds:
+  fudai_red_ratio: 0.08
+  text_match_confidence: 0.45
+keywords:
+  fudai:
+    - 福袋
+    - 抽奖
+  live_ended:
+    - 直播已结束
+    - 暂时离开
+  verification:
+    - 验证
+    - 拖动滑块
+    - 请完成验证
+  won:
+    - 恭喜中奖
+    - 已中奖
+    - 领取奖励

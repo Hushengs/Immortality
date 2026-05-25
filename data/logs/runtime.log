@@ -1,0 +1,2 @@
+{"time":"2026-05-25T17:39:45.7442039+08:00","level":"INFO","msg":"state transition","from":"INIT","to":"SELECT_DEVICE"}
+{"time":"2026-05-25T17:39:47.4196835+08:00","level":"ERROR","msg":"runner exited with error","error":"adb devices failed: exec: \"adb\": executable file not found in %PATH%: "}
