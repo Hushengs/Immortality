@@ -105,6 +105,14 @@ go mod tidy
 go run ./cmd/douyin-bot -config ./config.yaml
 ```
 
+启动本地管理页：
+
+```bash
+go run ./cmd/douyin-admin -addr :18080 -config ./config.yaml
+```
+
+启动后访问 [http://127.0.0.1:18080](http://127.0.0.1:18080)，可查看和编辑配置、查看记录、事件、日志与截图。
+
 使用静态截图 dry-run 调试：
 
 1. 在 `config.yaml` 中设置：
@@ -124,6 +132,13 @@ go run ./cmd/douyin-bot -config ./config.yaml
 ```bash
 go build -o douyin-bot.exe ./cmd/douyin-bot
 ./douyin-bot.exe -config ./config.yaml
+```
+
+编译本地管理页：
+
+```bash
+go build -o douyin-admin.exe ./cmd/douyin-admin
+./douyin-admin.exe -addr :18080 -config ./config.yaml
 ```
 
 ## 安全模式

@@ -1,0 +1,51 @@
+body {
+  background: #f6f7fb;
+}
+
+.page-body {
+  left: 0;
+  top: 60px;
+  padding: 24px 0;
+}
+
+.layui-container {
+  max-width: 1280px;
+}
+
+.form-actions,
+.toolbar {
+  margin-top: 16px;
+}
+
+.log-view {
+  min-height: 480px;
+  max-height: 640px;
+  overflow: auto;
+  padding: 16px;
+  background: #111827;
+  color: #e5e7eb;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.shot-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+}
+
+.shot-card img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #f3f4f6;
+}
+
+.shot-meta {
+  margin-top: 8px;
+  color: #4b5563;
+  font-size: 12px;
+}

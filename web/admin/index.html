@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Douyin Admin</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui@2.9.21/dist/css/layui.css">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+      <div class="layui-logo layui-hide-xs layui-bg-black">Admin</div>
+      <ul class="layui-nav layui-layout-left">
+        <li class="layui-nav-item">本地管理页</li>
+      </ul>
+    </div>
+    <div class="layui-body page-body">
+      <div class="layui-container">
+        <div class="layui-card">
+          <div class="layui-card-body">
+            <div class="layui-tab" lay-filter="admin-tabs">
+              <ul class="layui-tab-title">
+                <li class="layui-this">配置</li>
+                <li>记录</li>
+                <li>事件</li>
+                <li>日志</li>
+                <li>截图</li>
+              </ul>
+              <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                  <form class="layui-form" id="config-form">
+                    <div class="layui-row layui-col-space16">
+                      <div class="layui-col-md4"><label class="layui-form-label">ADB 路径</label><div class="layui-input-block"><input type="text" name="adb_path" autocomplete="off" class="layui-input"></div></div>
+                      <div class="layui-col-md4"><label class="layui-form-label">设备序列号</label><div class="layui-input-block"><input type="text" name="device_serial" autocomplete="off" class="layui-input"></div></div>
+                      <div class="layui-col-md4"><label class="layui-form-label">Tesseract</label><div class="layui-input-block"><input type="text" name="tesseract_path" autocomplete="off" class="layui-input"></div></div>
+                      <div class="layui-col-md3"><label class="layui-form-label">安全模式</label><div class="layui-input-block"><input type="checkbox" name="safe_mode" lay-skin="switch"></div></div>
+                      <div class="layui-col-md3"><label class="layui-form-label">自动领奖</label><div class="layui-input-block"><input type="checkbox" name="auto_claim_reward" lay-skin="switch"></div></div>
+                      <div class="layui-col-md3"><label class="layui-form-label">切房</label><div class="layui-input-block"><input type="checkbox" name="switch_room" lay-skin="switch"></div></div>
+                      <div class="layui-col-md3"><label class="layui-form-label">Dry Run</label><div class="layui-input-block"><input type="checkbox" name="debug_dry_run" lay-skin="switch"></div></div>
+                      <div class="layui-col-md3"><label class="layui-form-label">最小倒计时</label><div class="layui-input-block"><input type="number" name="strategy_min_join_seconds" class="layui-input"></div></div>
+                      <div class="layui-col-md3"><label class="layui-form-label">最大倒计时</label><div class="layui-input-block"><input type="number" name="strategy_max_join_seconds" class="layui-input"></div></div>
+                      <div class="layui-col-md3"><label class="layui-form-label">循环间隔</label><div class="layui-input-block"><input type="number" name="loop_interval_seconds" class="layui-input"></div></div>
+                      <div class="layui-col-md3"><label class="layui-form-label">最大迭代</label><div class="layui-input-block"><input type="number" name="debug_max_iterations" class="layui-input"></div></div>
+                      <div class="layui-col-md6"><label class="layui-form-label">白名单</label><div class="layui-input-block"><textarea name="strategy_prize_whitelist" class="layui-textarea" placeholder="每行一个关键字"></textarea></div></div>
+                      <div class="layui-col-md6"><label class="layui-form-label">黑名单</label><div class="layui-input-block"><textarea name="strategy_prize_blacklist" class="layui-textarea" placeholder="每行一个关键字"></textarea></div></div>
+                    </div>
+                    <div class="form-actions">
+                      <button class="layui-btn" lay-submit lay-filter="save-config">保存配置</button>
+                      <button type="button" class="layui-btn layui-btn-primary" id="reload-config">重新加载</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="layui-tab-item">
+                  <table class="layui-table" id="records-table"></table>
+                </div>
+                <div class="layui-tab-item">
+                  <table class="layui-table" id="events-table"></table>
+                </div>
+                <div class="layui-tab-item">
+                  <div class="toolbar"><button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="reload-logs">刷新日志</button></div>
+                  <pre class="log-view" id="logs-box"></pre>
+                </div>
+                <div class="layui-tab-item">
+                  <div class="toolbar"><button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="reload-shots">刷新截图</button></div>
+                  <div class="layui-row layui-col-space16" id="screenshots-grid"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/layui@2.9.21/dist/layui.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
