@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/Hushengs/Immortality/internal/model"
+	"github.com/Hushengs/Immortality/internal/utils"
 )
 
 type ADBClient struct {
@@ -42,8 +43,22 @@ func (c *ADBClient) ListDevices(ctx context.Context) ([]model.Device, error) {
 		}}, nil
 	}
 
+	// #region agent log
+	utils.WriteDebugLog("startup", "H4", "internal/device/adb_client.go:43", "list devices start", map[string]any{
+		"adbPath": c.adbPath,
+		"serial":  c.serial,
+		"dryRun":  c.dryRun,
+	})
+	// #endregion
+
 	output, err := c.runADBCommand(ctx, "devices")
 	if err != nil {
+		// #region agent log
+		utils.WriteDebugLog("startup", "H4", "internal/device/adb_client.go:53", "list devices failed", map[string]any{
+			"adbPath": c.adbPath,
+			"error":   err.Error(),
+		})
+		// #endregion
 		return nil, err
 	}
 
@@ -129,6 +144,19 @@ func (c *ADBClient) baseArgs() []string {
 func (c *ADBClient) runADBCommand(ctx context.Context, args ...string) ([]byte, error) {
 	var lastErr error
 
+	// #region agent log
+	lookPath, lookErr := exec.LookPath(c.adbPath)
+	utils.WriteDebugLog("startup", "H5", "internal/device/adb_client.go:138", "adb lookup result", map[string]any{
+		"adbPath":        c.adbPath,
+		"lookPath":       lookPath,
+		"lookPathError":  errorString(lookErr),
+		"commandArgs":    args,
+		"timeoutSeconds": c.config.CommandTimeoutSeconds,
+		"retryCount":     c.config.RetryCount,
+		"retryDelayMS":   c.config.RetryDelayMS,
+	})
+	// #endregion
+
 	for attempt := 0; attempt <= c.config.RetryCount; attempt++ {
 		commandCtx := ctx
 		cancel := func() {}
@@ -144,6 +172,14 @@ func (c *ADBClient) runADBCommand(ctx context.Context, args ...string) ([]byte, 
 		}
 
 		lastErr = fmt.Errorf("adb %s failed: %w: %s", strings.Join(args, " "), err, strings.TrimSpace(string(output)))
+		// #region agent log
+		utils.WriteDebugLog("startup", "H5", "internal/device/adb_client.go:161", "adb command attempt failed", map[string]any{
+			"attempt": attempt,
+			"adbPath": c.adbPath,
+			"args":    args,
+			"error":   lastErr.Error(),
+		})
+		// #endregion
 		if attempt == c.config.RetryCount {
 			break
 		}
@@ -169,4 +205,11 @@ func normalizeADBConfig(config model.ADBConfig) model.ADBConfig {
 		config.RetryDelayMS = 800
 	}
 	return config
+}
+
+func errorString(err error) string {
+	if err == nil {
+		return ""
+	}
+	return err.Error()
 }
